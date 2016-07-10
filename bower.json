@@ -1,0 +1,37 @@
+{
+  "name": "angular-wot-dings-bungs",
+  "homepage": "https://github.com/ganesheth/angular-wot-dings-bungs",
+  "authors": [
+    "Ganesh Ramanathan (ganesheth) <ganeshr@student.ethz.ch>"
+  ],
+  "description": "Wot Angular Dings Bungs",
+  "main": "index.html",
+  "moduleType": [],
+  "keywords": [
+    "W3C",
+    "WoT",
+    "web",
+    "things",
+    "IoT",
+    "Angular",
+    "material"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-material": "^1.0.6",
+    "angular-wot": "^0.0.12",
+	"json-formatter",
+	"angular-schema-form"
+  },
+  "resolutions": {
+    "angular-wot": "^0.0.12"
+  }
+}

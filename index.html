@@ -1,0 +1,110 @@
+<html lang="en-US">
+<head>
+    <style type="text/css">
+        #interactions {
+            font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+        }
+
+        #interactions td, #interactions th {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        #interactions table {
+            table-layout: fixed;
+            width: 100%;
+        }
+
+        #interactions tr:nth-child(even){background-color: #f2f2f2;}
+
+        #interactions tr:hover {background-color: #ddd;}
+
+        #interactions th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #4CAF50;
+            color: white;
+        }
+        div.scrollable {
+            width: 100%;
+            height: 100%;
+            max-width: 500px;
+            min-height:100px;
+            margin: 0;
+            padding: 0;
+            overflow: auto;
+            word-break:break-all;
+        }
+
+    </style>
+</head>
+<body>
+    <div ng-app="myApp" ng-controller="thingController" layout="column" ng-cloak="" class="thingWebUI">
+        <br>
+	    <span>URL for ThingDescription: <input style="width: 300px;" ng-model="tdurl"/>
+	    <button ng-click="readTD()">Read TD</button>
+        <br>
+        </span>
+        <table id="interactions"><tr ><td>Properties</td></tr></table>
+	    <table id="interactions">
+            <thead><tr><th>Name</th><th>Type</th><th>Read</th><th>Result</th><th>Update</th><th>Result</th></tr></thead>
+	        <tr ng-repeat="p in thing.properties">
+		    <td width="10%">{{ p.name }}</td>
+            <td width="30%"><div class="scrollable" ><pre>{{data | json}}{{ p.schema }}</pre></div></td>
+		    <td width="10%"><button ng-click="readInteraction(p)">Read</button></td>
+            <td width="20%"><div style="width: 300px; height: 100px; overflow: auto"><pre>{{data | json}}{{ p.value }}</pre></div></td>
+            <td width="20%"  ng-app="myApp" ng-controller="FormController">
+                <form ng-if="p.writable" name="thisForm" sf-schema="p.schema" sf-form="form" sf-model="p.model" ng-submit="onSubmit(thisForm, p)"></form>
+            </td>	
+            <td width="10%">{{ p.updateResponse }}</td>
+	        </tr>
+	    </table>
+
+        <table id="interactions"><tr><td>Actions</td></tr></table>
+        <table id="interactions">
+            <thead><tr><th>Name</th><th>Input Type</th><th>Read</th><th>Result</th><th>Update</th><th>Result</th></tr></thead>
+            <tr ng-repeat="a in thing.actions">
+                <td width="10%">{{ a.name }}</td>
+                <td width="30%"><div class="scrollable"><pre>{{data | json}}{{ a.schema }}</pre></div></td>
+                <td width="10%"><button ng-click="readInteraction(a)">Read</button></td>
+                <td width="20%"><div style="width: 300px; height: 100px; overflow: auto"><pre>{{data | json}}{{ a.value }}</pre></div></td>
+                <td width="20%" ng-app="myApp" ng-controller="FormController">
+                    <form name="thisForm" sf-schema="a.schema" sf-form="form" sf-model="a.model" ng-submit="onSubmit(thisForm, a)"></form>
+                </td>
+                <td width="10%">{{ a.updateResponse }}</td>
+            </tr>
+        </table>
+
+        <table id="interactions"><tr><td>Events</td></tr></table>
+        <table id="interactions">
+            <thead><tr><th>Name</th><th>Input Type</th><th>Read</th><th>Result</th><th>Update</th><th>Result</th></tr></thead>
+            <tr ng-repeat="e in thing.events">
+                <td width="10%">{{ e.name }}</td>
+                <td width="30%"><div class="scrollable"><pre>{{data | json}}{{ e.schema }}</pre></div></td>
+                <td width="10%"><button ng-click="readInteraction(e)">Read</button></td>
+                <td width="20%"><div style="width: 300px; height: 100px; overflow: auto"><pre>{{data | json}}{{ e.value }}</pre></div></td>
+                <td width="20%" ng-app="myApp" ng-controller="FormController">
+                    <form name="thisForm" sf-schema="e.schema" sf-form="form" sf-model="e.model" ng-submit="onSubmit(thisForm, e)"></form>
+                </td>
+                <td width="10%">{{ e.updateResponse }}</td>
+            </tr>
+        </table>
+    </div>	
+
+
+    <script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
+    <!--<script src="jsonld.js"></script>-->
+    <script src="myApp.js"></script>
+    <script src="thingController.js"></script>
+    <script src="bower_components/json-formatter/dist/json-formatter.js"></script>
+    <script type="text/javascript" src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
+    <script type="text/javascript" src="bower_components/tv4/tv4.js"></script>
+    <script type="text/javascript" src="bower_components/objectpath/lib/ObjectPath.js"></script>
+    <script type="text/javascript" src="bower_components/angular-schema-form/dist/schema-form.js"></script>
+    <script type="text/javascript" src="bower_components/angular-schema-form/dist/bootstrap-decorator.min.js"></script>
+
+</body>
+</html>
